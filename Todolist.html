@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to do list</title>
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100vh; 
+    background: linear-gradient(135deg, #bb4fd5, #f093fd);
+}
+
+.container {
+    width: 100%;
+    max-width: 540px;
+    padding:50px ; 
+    border-radius: 20px;
+    background: white;
+    text-align: center;
+   
+}
+
+.todoapp {
+    padding: 5px; 
+}
+
+.todoapp h2 {
+    margin-top: 10px;
+    font-size: 24px; 
+}
+
+.todoapp img {
+    width: 20px;
+    margin-left: 10px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f5dff8;
+    border-radius: 50px;
+    padding: 1px 2px; 
+    margin-bottom: 20px; 
+    margin-right: 50px;
+}
+
+input {
+    flex: 1; 
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px; 
+    font-size: 16px; 
+}
+
+button {
+    border: none;
+    outline: none;
+    padding:10px 35px; 
+    background: #bb02fe;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 18px; 
+    color: white; 
+}
+
+ul {
+    list-style-type: none; 
+    padding: 0;
+    align-items: center;
+    
+}
+
+ul li {
+    position: relative;
+
+    padding-right:400px; 
+    padding-bottom: 3px;
+    padding-top: 12px;
+    margin-bottom: 10px; 
+    font-size: 20px; 
+    left: 50px;
+    align-items: center;
+    
+   
+    
+}
+
+ul li::before {
+    content: '';
+    position: absolute;
+    height: 20px; 
+    width: 20px; 
+    border-radius: 50%; 
+    background-image: url(unchecked.jpg);
+    background-size: cover;
+    top:13px; 
+    cursor: pointer;
+    left: 0;
+   
+}
+
+
+ul li.checked::before{
+    background-image: url(checked.jpg);   
+    height: 20px;
+    width: 20px;
+}
+ul li span{
+    position: absolute;
+    right: 0;
+    top:5px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    color: #11a34b;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+ul li span:hover{
+    background: #f5dff8;
+    border-radius: 50%;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="todoapp">
+            <h2>To Do List <img src="todo.jpg"></h2>
+
+            <div class="row">
+                <input type="text" id="inputbox" placeholder="Upgrade task">
+                <button onclick="addtask()">Insert</button>
+            </div>
+            <ul id="listcon">
+                <!---
+                <li class="checked">HTML</li>
+                <li>CSS</li>-->
+            </ul>
+        </div>
+
+        
+
+    </div>
+      <script>
+            const inbx=document.getElementById("inputbox");
+            const list=document.getElementById("listcon");
+
+            function addtask(){
+                if(inbx.value===''){
+                    alert("Please add task");
+                }
+                else{
+                    let li=document.createElement("li");
+                    li.innerHTML=inbx.value;
+                    list.appendChild(li);
+                    let span=document.createElement("span");
+                    span.innerHTML="\u00D7";
+                    li.appendChild(span);
+                }
+                inbx.value="";
+                savedata();
+            }
+            listcon.addEventListener("click",function(e){
+                if(e.target.tagName==="LI"){
+                    e.target.classList.toggle("checked");
+                }
+                else if(e.target.tagName==="SPAN"){
+                    e.target.parentElement.remove();
+                }
+            },false);
+
+            function savedata(){
+                localStorage.setItem("data",listcon.innerHTML);
+
+            }
+            function show(){
+                listcon.innerHTML=localStorage.getItem("data");
+            }
+            show();
+
+      </script>  
+</body>
+</html>
