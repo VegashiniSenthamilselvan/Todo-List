@@ -1,196 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>to do list</title>
-    <style>
-        body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    height: 100vh; 
-    background: linear-gradient(135deg, #bb4fd5, #f093fd);
-}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <title>To Do List App</title>
+        <style>
 
-.container {
-    width: 100%;
-    max-width: 540px;
-    padding:50px ; 
-    border-radius: 20px;
-    background: white;
-    text-align: center;
-   
-}
-
-.todoapp {
-    padding: 5px; 
-}
-
-.todoapp h2 {
-    margin-top: 10px;
-    font-size: 24px; 
-}
-
-.todoapp img {
-    width: 20px;
-    margin-left: 10px;
-}
-
-.row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #f5dff8;
-    border-radius: 50px;
-    padding: 1px 2px; 
-    margin-bottom: 20px; 
-    margin-right: 50px;
-}
-
-input {
-    flex: 1; 
-    border: none;
-    outline: none;
-    background: transparent;
-    padding: 10px; 
-    font-size: 16px; 
-}
-
-button {
-    border: none;
-    outline: none;
-    padding:10px 35px; 
-    background: #bb02fe;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 18px; 
-    color: white; 
-}
-
-ul {
-    list-style-type: none; 
-    padding: 0;
-    align-items: center;
+            body
+            {
+                margin:0;
+                padding:0;
+                font-family: 'Poppins',sans-serif;
+                box-sizing: border-box;
+            }
+            .container
+            {
+                width:100%;
+                min-height: 100vh;
+                background:linear-gradient(135deg,rgb(71, 71, 164),rgb(152, 79, 152));
+                padding: 10px;    
+            }
+            .todo-app
+            {
+                width:100%; 
+                max-width:540px;
+                background: white;
+                margin:100px auto 20px; 
+                padding:40px 30px 70px;
+                border-radius: 10px;    
+            }
+            .todo-app h2{
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;  
+                margin-left: 200px;
+            }
+            .todo-app img
+            {
+                width:30px;
+                margin-left: 10px;
+            }
+            .row{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: #ededed;
+                padding-left:20px;
+                margin-bottom: 25px;
+                border-radius: 30px;
+            }
+            input{
+                flex:1;
+                border: none;
+                outline:none;
+                background: transparent;
+                font-weight:14px;
+                padding:10px;
+            }
+            button{
+                border: none;
+                outline:none;
+                padding:16px 50px;
+                background:#ee6050 ;
+                border-radius: 40px;
+                color:white;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            ul li{
+                list-style: none;
+                font-size: 20px;
+                padding:12px 8px 12px 40px;
+                user-select: none;
+                cursor: pointer;
+                position: relative;
+            }
+            ul li::before
+            {
+                content:'';
+                background-image: url(unchecked.jpg);
+                position: absolute;
+                height: 28px;
+                width:28px;
+                border-radius: 50px;
+                background-size: cover;
+                background-position: center;
+                top:10px;
+                left:-20px;
+            }
+            ul li.checked
+            {
+                text-decoration: line-through;
+            }
+            ul li.checked::before{
+                background-image: url(checked.jpg);
+            }
+            ul li span{
+                position:absolute;
+                right: 15px;
+                top:5px;
+                width:40px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                color:#ee6050;
+                border-radius: 50%;
+                font-size: 35px;
+            }
+            ul li span:hover{
+                background: #edeef0;
+            }
+        </style>
     
-}
+    </head>
 
-ul li {
-    position: relative;
+    <body>
 
-    padding-right:400px; 
-    padding-bottom: 3px;
-    padding-top: 12px;
-    margin-bottom: 10px; 
-    font-size: 20px; 
-    left: 50px;
-    align-items: center;
-    
-   
-    
-}
+        <div class="container">
+            <div class="todo-app">
+               <h2>To do list<img src="todo.jpg"></h2>
 
-ul li::before {
-    content: '';
-    position: absolute;
-    height: 20px; 
-    width: 20px; 
-    border-radius: 50%; 
-    background-image: url(unchecked.jpg);
-    background-size: cover;
-    top:13px; 
-    cursor: pointer;
-    left: 0;
-   
-}
+               <div class="row">
+                <input type="text" id="input-box" placeholder="Add your task">
+                <button onclick="addtask()">Add</button>
+               </div>
 
 
-ul li.checked::before{
-    background-image: url(checked.jpg);   
-    height: 20px;
-    width: 20px;
-}
-ul li span{
-    position: absolute;
-    right: 0;
-    top:5px;
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-    color: #11a34b;
-    line-height: 40px;
-    text-align: center;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-}
-ul li span:hover{
-    background: #f5dff8;
-    border-radius: 50%;
-}
-
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="todoapp">
-            <h2>To Do List <img src="todo.jpg"></h2>
-
-            <div class="row">
-                <input type="text" id="inputbox" placeholder="Upgrade task">
-                <button onclick="addtask()">Insert</button>
+               <ul id="list-container">
+               <!--<li class="checked">HTML</li>
+                <li>CSS</li>
+                <li>Javascript</li>-->
+               </ul>
             </div>
-            <ul id="listcon">
-                <!---
-                <li class="checked">HTML</li>
-                <li>CSS</li>-->
-            </ul>
         </div>
 
-        
+        <script>
 
-    </div>
-      <script>
-            const inbx=document.getElementById("inputbox");
-            const list=document.getElementById("listcon");
+const inputbox = document.getElementById("input-box");
+const listcontainer = document.getElementById("list-container");
 
-            function addtask(){
-                if(inbx.value===''){
-                    alert("Please add task");
-                }
-                else{
-                    let li=document.createElement("li");
-                    li.innerHTML=inbx.value;
-                    list.appendChild(li);
-                    let span=document.createElement("span");
-                    span.innerHTML="\u00D7";
-                    li.appendChild(span);
-                }
-                inbx.value="";
-                savedata();
+// Function to add a new task
+function addtask() {
+    if (inputbox.value === '') {
+        alert("Please enter any task!");
+    } else {
+        let li = document.createElement("li");
+        li.innerHTML = inputbox.value;
+        listcontainer.appendChild(li);
+        let span = document.createElement("span");
+        span.innerHTML = "\u00d7";
+        li.appendChild(span);
+        savedata(); // Save data after adding a task
+    }
+    inputbox.value = '';
+}
+
+// Event listener to handle clicks on tasks
+listcontainer.addEventListener("click", function(d) {
+    if (d.target.tagName === "LI") {
+        d.target.classList.toggle("checked");
+        savedata(); // Save data when a task is checked/unchecked
+    } else if (d.target.tagName === "SPAN") {
+        d.target.parentElement.remove();
+        savedata(); // Save data after a task is removed
+    }
+}, false);
+
+// Function to save tasks and their checked state to localStorage
+function savedata() {
+    const tasks = [];
+    listcontainer.querySelectorAll('li').forEach(li => {
+        tasks.push({
+            text: li.innerHTML.replace(/<span>.*<\/span>/, ""),
+            checked: li.classList.contains("checked")
+        });
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    console.log("Tasks saved:", tasks); // Debugging log
+}
+
+function showtask() {
+    const tasks = JSON.parse(localStorage.getItem("tasks"));
+    console.log("Tasks loaded:", tasks); // Debugging log
+    if (tasks) {
+        tasks.forEach(task => {
+            let li = document.createElement("li");
+            li.innerHTML = task.text;
+            if (task.checked) {
+                li.classList.add("checked");
             }
-            listcon.addEventListener("click",function(e){
-                if(e.target.tagName==="LI"){
-                    e.target.classList.toggle("checked");
-                }
-                else if(e.target.tagName==="SPAN"){
-                    e.target.parentElement.remove();
-                }
-            },false);
+            let span = document.createElement("span");
+            span.innerHTML = "\u00d7";
+            li.appendChild(span);
+            listcontainer.appendChild(li);
+        });
+    }
+}
 
-            function savedata(){
-                localStorage.setItem("data",listcon.innerHTML);
 
+// Function to display tasks and restore their checked state
+function showtask() {
+    const tasks = JSON.parse(localStorage.getItem("tasks"));
+    if (tasks) {
+        tasks.forEach(task => {
+            let li = document.createElement("li");
+            li.innerHTML = task.text;
+            if (task.checked) {
+                li.classList.add("checked");
             }
-            function show(){
-                listcon.innerHTML=localStorage.getItem("data");
-            }
-            show();
+            let span = document.createElement("span");
+            span.innerHTML = "\u00d7";
+            li.appendChild(span);
+            listcontainer.appendChild(li);
+        });
+    }
+}
 
-      </script>  
-</body>
+showtask(); // Restore tasks when the page loads
+
+        </script>
+
+    </body>
 </html>
